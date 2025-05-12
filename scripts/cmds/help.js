@@ -3,7 +3,7 @@ const axios = require("axios");
 const path = require("path");
 const { getPrefix } = global.utils;
 const { commands, aliases } = global.GoatBot;
-const doNotDelete = "🦋 ArYAN 🌺";
+const doNotDelete = "ᎯᏨᏦᎬᏒᎷᎯᏁ 𐂂";
 /** 
 * @author NTKhang
 * @author: do not delete it
@@ -38,50 +38,50 @@ module.exports = {
  en: {
  help: "╭───────────⦿"
  + "\n%1"
- + "\n✪──────⦿"
- + "\n✪ Page [ %2/%3 ]"
+ + "\n𓃗──────⦿"
+ + "\n𓃗 Page [ %2/%3 ]"
  + "\n│ 𝐂𝐮𝐫𝐫𝐞𝐧𝐭𝐥𝐲, 𝐓𝐡𝐞 𝐁𝐨𝐭 𝐇𝐚𝐬 %4 𝐂𝐨𝐦𝐦𝐚𝐧𝐝𝐬 𝐓𝐡𝐚𝐭 𝐂𝐚𝐧 𝐁𝐞 𝐔𝐬𝐞𝐝"
  + "\n│ 𝐓𝐲𝐩𝐞 %5𝐡𝐞𝐥𝐩 <𝐩𝐚𝐠𝐞> 𝐓𝐨 𝐕𝐢𝐞𝐰 𝐓𝐡𝐞 𝐂𝐨𝐦𝐦𝐚𝐧𝐝 𝐋𝐢𝐬𝐭"
  + "\n│ 𝐓𝐲𝐩𝐞 %5𝐡𝐞𝐥𝐩 𝐓𝐨 𝐕𝐢𝐞𝐰 𝐓𝐡𝐞 𝐃𝐞𝐭𝐚𝐢𝐥𝐬 𝐎𝐟 𝐇𝐨𝐰 𝐓𝐨 𝐔𝐬𝐞 𝐓𝐡𝐚𝐭 𝐂𝐨𝐦𝐦𝐚𝐧𝐝"
- + "\n✪──────⦿"
- + "\n✪ %6"
+ + "\n𓃗──────⦿"
+ + "\n𓃗 %6"
  + "\n╰─────────────⦿",
  help2: "%1╭──────────⦿"
  + "\n│ 𝗧𝗼𝘁𝗮𝗹 𝗰𝗺𝗱𝘀:「%2」"
  + "\n╰─────────────⦿\n╭─────────────⦿\n│%4\n╰────────────⦿",
  commandNotFound: "Command \"%1\" does not exist",
  getInfoCommand: "⦿────── NAME ──────⦿"
- + "\n✪ %1"
- + "\n✪▫INFO▫"
- + "\n✪ Description: %2"
- + "\n✪ Other names: %3"
- + "\n✪ Other names in your group: %4"
- + "\n✪ Version: %5"
- + "\n✪ Role: %6"
- + "\n✪ Time per command: %7s"
- + "\n✪ Author: %8"
- + "\n✪▫USAGE▫"
+ + "\n𓃗 %1"
+ + "\n𓃗▫INFO▫"
+ + "\n𓃗 Description: %2"
+ + "\n𓃗 Other names: %3"
+ + "\n𓃗 Other names in your group: %4"
+ + "\n𓃗 Version: %5"
+ + "\n𓃗 Role: %6"
+ + "\n𓃗 Time per command: %7s"
+ + "\n𓃗 Author: %8"
+ + "\n𓃗▫USAGE▫"
  + "\n» %9"
  + "\n⦿─────────────────⦿",
  onlyInfo: "╭────⦿INFO ──────⦿"
- + "\n✪ Command name: %1"
- + "\n✪ Description: %2"
- + "\n✪ Other names: %3"
- + "\n✪ Other names in your group: %4"
- + "\n✪ Version: %5"
- + "\n✪ Role: %6"
- + "\n ✪Time per command: %7s"
- + "\n✪ Author: %8"
+ + "\n𓃗 Command name: %1"
+ + "\n𓃗 Description: %2"
+ + "\n𓃗 Other names: %3"
+ + "\n𓃗 Other names in your group: %4"
+ + "\n𓃗 Version: %5"
+ + "\n𓃗 Role: %6"
+ + "\n 𓃗Time per command: %7s"
+ + "\n𓃗 Author: %8"
  + "\n╰─────────────⦿",
  onlyUsage: "╭───⦿ USAGE ─────⦿"
  + "\n✪%1"
  + "\n╰─────────────⦿",
  onlyAlias: "╭───⦿ ALIAS ─────⦿"
- + "\n✪ Other names: %1"
- + "\n✪ Other names in your group: %2"
+ + "\n𓃗 Other names: %1"
+ + "\n𓃗 Other names in your group: %2"
  + "\n╰─────────────⦿",
  onlyRole: "╭────⦿ ROLE ───⦿"
- + "\n✪%1"
+ + "\n𓃗%1"
  + "\n╰─────────────⦿",
  doNotHave: "Do not have",
  roleText0: "0 (All users)",
