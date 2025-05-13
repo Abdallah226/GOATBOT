@@ -2,7 +2,7 @@ const axios = require('axios');
 const UPoLPrefix = [
   'edu',
   'ai',
-  'Megan',
+  'Ackerman',
   'bot',
   'ask'
 ]; 
