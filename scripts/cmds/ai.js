@@ -1,100 +1,100 @@
 const axios = require('axios');
+const { sendMessage } = require('../handles/sendMessage');
+const fs = require('fs');
+const token = fs.readFileSync('token.txt', 'utf8');
 
-let PriyaPrefix = [
-  'queen',
-  'ai',
-  '.ai',
-];
-
-const axiosInstance = axios.create();
+// [ true if turn on font & false if turn off ]
+const useFontFormatting = true;
 
 module.exports = {
-  config: {
-    name: 'ai',
-    version: '2.2.0',
-    role: 0,
-    category: 'AI',
-    author: 'Priyanshi Kaur 🩶 Priyansh Rajput',
-    shortDescription: 'Artificial Intelligence',
-    longDescription: 'Ask Anything To Ai For Your Answers',
+  name: 'ai',
+  description: 'Interact to Free GPT - OpenAI.',
+  author: 'Arn', // API by Kenlie Navacilla Jugarap
+
+  async execute(senderId, args) {
+    const pageAccessToken = token;
+    const query = args.join(" ").toLowerCase();
+
+    if (!query) {
+      const defaultMessage = "𝐀𝐜𝐤𝐞𝐫𝐦𝐚𝐧 𝐢𝐬 𝐡𝐞𝐫𝐞 𝐭𝐨 𝐡𝐞𝐥𝐩 𝐲𝐨𝐮 𝐥𝐞𝐭'𝐬 𝐠𝐨 𝐰𝐢𝐭𝐡 𝐲𝐨𝐮𝐫 𝐚𝐬𝐤𝐢𝐧𝐠";
+      const formattedMessage = useFontFormatting ? formatResponse(defaultMessage) : defaultMessage;
+      return await sendMessage(senderId, { text: formattedMessage }, pageAccessToken);
+    }
+
+    if (query === "sino creator mo?" || query === "who created you?") {
+      const jokeMessage = "Arn/Rynx Gaiser";
+      const formattedMessage = useFontFormatting ? formatResponse(jokeMessage) : jokeMessage;
+      return await sendMessage(senderId, { text: formattedMessage }, pageAccessToken);
+    }
+
+    await handleChatResponse(senderId, query, pageAccessToken);
   },
+};
 
-  onStart: async function () {},
+const handleChatResponse = async (senderId, input, pageAccessToken) => {
+  const apiUrl = "https://kaiz-apis.gleeze.com/api/bert-ai";
 
-  onChat: async function ({ message, event, args, api, threadID, messageID }) {
-    const command = args[0]?.toLowerCase();
+  try {
+    const aidata = await axios.get(apiUrl, { params: { q: input, uid: senderId } });
+    let response = aidata.data.response;
 
-    // Help Command
-    if (command === 'help') {
-      const helpMessage = `
-      🌟 *AI Commands* 🌟
-      - Prefixes: ${PriyaPrefix.join(', ')}
-      - Add Prefix: addprefix <prefix>
-      - AI Query: ${PriyaPrefix[0]} <your query>
-      - Say Hi: hi
-      `;
-      await message.reply(helpMessage);
-      return;
-    }
+    const responseTime = new Date().toLocaleString('en-US', { timeZone: 'Asia/Manila', hour12: true });
 
-    // Add New Prefix Command
-    if (command === 'addprefix') {
-      const newPrefix = args[1];
-      if (newPrefix && !PriyaPrefix.includes(newPrefix)) {
-        PriyaPrefix.push(newPrefix);
-        await message.reply(`New prefix "${newPrefix}" added successfully!`);
-      } else {
-        await message.reply('Please provide a valid and unique prefix.');
-      }
-      return;
-    }
+    const answeringMessage = `⏳ 𝐀𝐭𝐭𝐞𝐧𝐝𝐞𝐳 𝐪𝐮𝐞 𝐣𝐞 𝐫𝐞𝐦𝐮𝐞𝐬 𝐥𝐞𝐬 𝐦𝐞𝐧𝐢𝐧𝐠𝐞𝐬...`;
+    const formattedAnsweringMessage = useFontFormatting ? formatResponse(answeringMessage) : answeringMessage;
+    await sendMessage(senderId, { text: formattedAnsweringMessage }, pageAccessToken);
 
-    // Check for prefixes in the message
-    const ahprefix = PriyaPrefix.find((p) => event.body && event.body.toLowerCase().startsWith(p));
-    if (!ahprefix) {
-      return;
-    }
+    const defaultMessage = `Free GPT / OpenAI
 
-    const priya = event.body.substring(ahprefix.length).trim();
-    if (!priya) {
-      await message.reply('𝐀𝐜𝐤𝐞𝐫𝐦𝐚𝐧 𝐢𝐬 𝐡𝐞𝐫𝐞 𝐭𝐨 𝐡𝐞𝐥𝐩 𝐲𝐨𝐮');
-      return;
-    }
+♦︎|☛ᎯᏨᏦᎬᏒᎷᎯᏁ 𐂂
+✅ Answer: ${response}
+▬𓃗 ▬𓀡▬✧▬𓅷▬ ▬𓃠▬
+⏰ Response: ${responseTime}`;
 
-    const apply = [
-      '𝚎𝚗𝚝𝚎𝚛 (𝚚)*',
-      '𝙷𝚘𝚠 𝙲𝚊𝚗 𝙸 𝙷𝚎𝚕𝚙 𝚈𝚘𝚞?',
-      '𝚀𝚞𝚊𝚛𝚢 𝙿𝚕𝚎𝚊𝚜𝚎....',
-      '𝙷𝚘𝚠 𝙲𝚊𝚗 𝙸 𝙰𝚜𝚜𝚒𝚜𝚝 𝚈𝚘𝚞?',
-      '𝙶𝚛𝚎𝚎𝚝𝚒𝚗𝚐𝚜!',
-      '𝙸𝚜 𝚃𝚑𝚎𝚛𝚎 𝚊𝚗𝚢𝚝𝚑𝚒𝚗𝚐 𝙴𝚕𝚜𝚎 𝙸 𝙲𝚊𝚗 𝙳𝚘?'
-    ];
-    const randomapply = apply[Math.floor(Math.random() * apply.length)];
+    const formattedMessage = useFontFormatting ? formatResponse(defaultMessage) : defaultMessage;
 
-    if (command === 'hi') {
-      await message.reply(randomapply);
-      return;
-    }
+    await sendConcatenatedMessage(senderId, formattedMessage, pageAccessToken);
+  } catch (error) {
+    console.error('Error while processing AI response:', error.message);
 
-    // Remove AI-related words from the query
-    const cleanedQuery = priya.replace(/\b(ai|queen|\.ai)\b/gi, '').trim();
-    const encodedPrompt = encodeURIComponent(cleanedQuery);
-
-    // Send the initial waiting message
-    const waitingMessage = await message.reply('𝚀𝚞𝚎𝚎𝚗 𝚃𝚑𝚒𝚗𝚔𝚒𝚗𝚐.....');
-
-    try {
-      // Call the AI API
-      const response = await axiosInstance.get(`https://priyansh-ai.onrender.com/gemini/ai?query=${encodedPrompt}`);
-      const Priya = response.data;
-      const priyares = `${Priya}`;
-
-      // Edit the waiting message with the AI response
-      await api.editMessage(priyares, waitingMessage.messageID);
-
-    } catch (error) {
-      // Handle any errors and update the waiting message
-      await api.editMessage('Oops! Something went wrong. Please try again later.', waitingMessage.messageID);
-    }
+    const errorMessage = '❌ Ahh sh1t error again.';
+    const formattedMessage = useFontFormatting ? formatResponse(errorMessage) : errorMessage;
+    await sendMessage(senderId, { text: formattedMessage }, pageAccessToken);
   }
 };
+
+const sendConcatenatedMessage = async (senderId, text, pageAccessToken) => {
+  const maxMessageLength = 2000;
+
+  if (text.length > maxMessageLength) {
+    const messages = splitMessageIntoChunks(text, maxMessageLength);
+    for (const message of messages) {
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await sendMessage(senderId, { text: message }, pageAccessToken);
+    }
+  } else {
+    await sendMessage(senderId, { text }, pageAccessToken);
+  }
+};
+
+const splitMessageIntoChunks = (message, chunkSize) => {
+  const chunks = [];
+  for (let i = 0; i < message.length; i += chunkSize) {
+    chunks.push(message.slice(i, i + chunkSize));
+  }
+  return chunks;
+};
+
+function formatResponse(responseText) {
+  const fontMap = {
+    ' ': ' ',
+    'a': '𝗮', 'b': '𝗯', 'c': '𝗰', 'd': '𝗱', 'e': '𝗲', 'f': '𝗳', 'g': '𝗴', 'h': '𝗵',
+    'i': '𝗶', 'j': '𝗷', 'k': '𝗸', 'l': '𝗹', 'm': '𝗺', 'n': '𝗻', 'o': '𝗼', 'p': '𝗽', 'q': '𝗾',
+    'r': '𝗿', 's': '𝘀', 't': '𝘁', 'u': '𝘂', 'v': '𝘃', 'w': '𝘄', 'x': '𝘅', 'y': '𝘆', 'z': '𝘇',
+    'A': '𝗔', 'B': '𝗕', 'C': '𝗖', 'D': '𝗗', 'E': '𝗘', 'F': '𝗙', 'G': '𝗚', 'H': '𝗛',
+    'I': '𝗜', 'J': '𝗝', 'K': '𝗞', 'L': '𝗟', 'M': '𝗠', 'N': '𝗡', 'O': '𝗢', 'P': '𝗣', 'Q': '𝗤',
+    'R': '𝗥', 'S': '𝗦', 'T': '𝗧', 'U': '𝗨', 'V': '𝗩', 'W': '𝗪', 'X': '𝗫', 'Y': '𝗬', 'Z': '𝗭',
+  };
+
+  return responseText.split('').map(char => fontMap[char] || char).join('');
+                                  }
